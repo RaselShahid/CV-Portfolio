@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<body class="font-body text-gray-800 bg-white">
+
+  <!-- ================= HEADER ================= -->
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CDN MUST BE FIRST -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#008080'
+          },
+          fontFamily: {
+            heading: ['Poppins', 'sans-serif'],
+            body: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+  <style>
+    .skill-pill {
+        display: inline-flex;
+        align-items: center;
+
+        padding: 0.25rem 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        color: #000;
+
+        background-color: rgba(0, 179, 179, 0.2);
+        border: 1px solid rgba(0, 179, 179, 0.3);
+
+        border-radius: 9999px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    @keyframes pulseSoft {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(0,179,179,0.4);
+    }
+    50% {
+        transform: scale(1.04);
+        box-shadow: 0 0 15px rgba(0,179,179,0.6);
+    }
+    }
+
+    .animate-pulse-slow {
+    animation: pulseSoft 2.5s ease-in-out infinite;
+    }
+
+    /* Header nav hover + active */
+    .nav-link {
+    position: relative;
+    color: #1f2937; /* gray-800 */
+    transition: color 0.25s ease;
+    font-size: 1.125rem;
+    }
+
+    .nav-link:hover {
+    color: #00b3b3;
+    }
+
+    .nav-link.active {
+    color: #00b3b3;
+    }
+
+    .nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background-color: #00b3b3;
+    border-radius: 2px;
+    }
+
+    /* =========================
+   PILL — DEPTH & BEVEL
+    ========================= */
+    .cta-pill-refined {
+    position: relative;
+
+    padding: 0.5rem 3.5rem 0.5rem 1.5rem;
+
+    font-family: "Luckiest Guy", cursive;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+
+    color: #00343b;
+
+    background: linear-gradient(
+        to bottom,
+        #ffffff 0%,
+        #f4f4f4 55%,
+        #eaeaea 100%
+    );
+
+    /* Asymmetric rounding */
+    border-radius: 24px 4px 4px 20px;
+
+    border: 1px solid #d8d8d8;
+
+    /* INNER BEVEL */
+    box-shadow:
+        inset 0 2px 2px rgba(255,255,255,0.9),
+        inset 0 -3px 4px rgba(0,0,0,0.08),
+
+        /* OUTER AMBIENT SHADOW (THIS WAS MISSING) */
+        0 8px 18px rgba(0,0,0,0.22);
+
+    }
+
+    /* Inner curved highlight */
+    .cta-pill-refined::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+
+    border-radius: 22px 3px 3px 18px;
+
+    background: linear-gradient(
+        to bottom left,
+        rgba(255,255,255,0.75),
+        rgba(255,255,255,0)
+    );
+
+    pointer-events: none;
+    }
+
+    /* TEXT EMBOSS (SUBTLE BUT CRITICAL) */
+    .cta-pill-refined {
+    text-shadow:
+        0 1px 0 rgba(255,255,255,0.8),
+        0 -1px 0 rgba(0,0,0,0.05);
+    }
+
+    /* =========================
+    ICON CIRCLE — SHADOW + GLOW
+    ========================= */
+    .cta-icon-refined {
+    position: absolute;
+    right: -24px;
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle at top left,
+        #00d0d0,
+        #007c7c
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* OUTER SHADE + GLOW (REFERENCE MATCH) */
+    box-shadow:
+        0 6px 14px rgba(0,0,0,0.35),      /* shadow */
+        0 0 0 6px rgba(0,179,179,0.25),  /* soft ring */
+        0 0 32px rgba(0,179,179,0.55);   /* glow */
+
+    z-index: 2;
+    }
+
+    .cta-icon-refined i {
+    color: #ffffff;
+    font-size: 1.875rem;
+
+    /* ICON DEPTH */
+    text-shadow:
+        0 2px 2px rgba(0,0,0,0.25);
+    }
+
+    .font-heading {
+        font-family: "Rubik Wet Paint", system-ui;
+        font-size: 3rem;
+        color: #00343b;
+        display: inline-block;
+        }
+
+        /* LETTER BASE */
+        .letter {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(14px) rotate(-3deg);
+        animation:
+            reveal 0.6s ease forwards,
+            float 3.5s ease-in-out infinite;
+        }
+
+        /* REVEAL ANIMATION */
+        @keyframes reveal {
+        to {
+            opacity: 1;
+            transform: translateY(0) rotate(0);
+        }
+        }
+
+        /* FLOAT (starts AFTER reveal) */
+        @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-4px);
+        }
+        }
+
+        /* right section title style */
+        .section-heading {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-bottom: 16px;
+          color: #00343b;
+        }
+
+        .section-heading .stripe-box {
+          width: 40px;
+          height: 16px;
+          background: repeating-linear-gradient(
+            135deg,
+            #00343b 0,
+            #00343b 6px,
+            transparent 6px,
+            transparent 12px
+          );
+        }
+
+        .section-heading .title-icon {
+          width: 34px;
+          height: 34px;
+          border-radius: 999px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          /* subtle look */
+          background: rgba(0, 52, 59, 0.08);
+          border: 1px solid rgba(0, 52, 59, 0.15);
+          color: #00343b;
+          font-size: 14px;
+        }
+
+        .section-heading h2 {
+          font-family: "Poppins", sans-serif;
+          font-weight: 700;
+          color: #00343b;
+          margin: 0;
+          font-size: clamp(20px, 2.2vw, 30px);
+        }
+
+        .section-divider{
+          border: 0;
+          height: 2px;
+          background: #00343b80;
+          margin-top: 0.4em !important;
+        }
+
+        
+        .summary-short{
+          font-size: 16px;
+          line-height: 1.7;
+          color: rgba(15, 23, 42, 0.75);
+          max-width: 100%;
+          margin-bottom: 16px;
+          text-align: justify;
+        }
+
+        .summary-full{
+          font-size: 16px;
+          line-height: 1.9;
+          color: rgba(15, 23, 42, 0.8);
+          max-width: 100%;
+          text-align: justify;
+        }
+
+        .summary-highlight{
+          color: #00343b;
+          font-weight: 600;
+        }
+
+        /* project card styling */
+        .project-card{
+          border: 1px solid rgba(0,179,179,0.20);
+          border-radius: 12px;
+          padding: 18px 18px;
+          background: rgba(255,255,255,0.90);
+          box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+
+        .project-title{
+          font-size: 18px;
+          font-weight: 700;
+          color: #00b3b3;
+          margin-bottom: 6px;
+        }
+
+        .project-subtitle{
+          font-size: 15px;
+          font-weight: 600;
+          color: #00343b;
+          margin-bottom: 10px;
+          border-left: 3px solid #00343b;
+          padding-left: 10px;
+        }
+
+        .project-desc{
+          font-size: 14px;
+          line-height: 1.6;
+          color: #374151;
+          margin-bottom: 12px;
+          text-align: justify;
+        }
+
+        .project-tech{
+          font-size: 14px;
+          color: #374151;
+          margin-bottom: 12px;
+        }
+
+        .tech-label{
+          font-weight: 700;
+          color: #00343b;
+        }
+
+        .project-link{
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 14px;
+          font-weight: 700;
+          color: #00b3b3;
+          text-decoration: none;
+        }
+
+        .project-link i{
+          font-size: 13px;
+        }
+
+
+
+  </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 bg-white border-b">
+  <div class="max-w-[1440px] mx-auto px-6 h-[90px] flex items-center justify-between">
+
+    <!-- Logo -->
+    <span id="brand-name" class="font-heading">Rasel Shahid</span>
+
+    <!-- Right side (nav + CTA) -->
+    <div class="flex items-center gap-6">
+
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+        <a href="#summary" class="nav-link">Summary</a>
+        <a href="#achievement" class="nav-link">Achievements</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#strengths" class="nav-link">Strength</a>
+    </nav>
+
+
+      <!-- CTA BUTTON -->
+      <a href="#contact" class="hidden md:flex items-center relative select-none">
+        <span class="cta-pill-refined">
+          CONTACT US
+        </span>
+
+        <span class="cta-icon-refined">
+          <i class="fas fa-envelope"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+<div class="m-0 p-0 box-border">
+
+  <div class="flex flex-col lg:flex-row">
+
+    <!-- Left Column -->
+    <div class="w-full lg:w-[30%] min-h-screen bg-[#00343b] py-3 rounded-r-3xl rounded-l-none">
+      <div class="min-h-screen max-w-[73%] ml-auto pr-2">
+        <aside class="py-10 text-white">
+
+          <!-- profile Picture -->
+          <img
+            src="https://raw.githubusercontent.com/RaselShahid/My-Portfolio/main/image/rasel-shahid.jpg"
+            alt="Rasel Shahid"
+            class="w-28 h-28 rounded-full border-4 border-[#00b3b3] object-cover"
+          />
+
+          <!-- Title & Desc -->
+          <h1 class="mt-4 text-4xl font-bold">Rasel Shahid</h1>
+          <p class="text-base text-gray-200">
+            WordPress Developer | Elementor Expert
+          </p>
+
+          <!-- SOCIAL ICONS -->
+          <div class="mt-4 flex items-center gap-4 flex-wrap">
+
+            <a href="https://www.facebook.com/Rasel.Shahid/" class="w-9 h-9 flex items-center justify-center
+              border border-white/20 rounded-full text-[#9fd6d3]
+              hover:border-[#00b3b3] hover:text-[#00b3b3] transition" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <a href="http://raselfly.com/" class="w-9 h-9 flex items-center justify-center
+              border border-white/20 rounded-full text-[#9fd6d3]
+              hover:border-[#00b3b3] hover:text-[#00b3b3] transition" target="_blank">
+              <i class="fas fa-globe"></i>
+            </a>
+
+            <a href="https://github.com/RaselShahid" class="w-9 h-9 flex items-center justify-center
+              border border-white/20 rounded-full text-[#9fd6d3]
+              hover:border-[#00b3b3] hover:text-[#00b3b3] transition" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/in/rasel-shahid/" class="w-9 h-9 flex items-center justify-center
+              border border-white/20 rounded-full text-[#9fd6d3]
+              hover:border-[#00b3b3] hover:text-[#00b3b3] transition" target="_blank">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <a href="https://www.instagram.com/rasel.shahiid/" class="w-9 h-9 flex items-center justify-center
+              border border-white/20 rounded-full text-[#9fd6d3]
+              hover:border-[#00b3b3] hover:text-[#00b3b3] transition" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+
+          </div>
+
+          <hr class="my-6 border-white/20">
+
+            <!-- CONTACT HEADER -->
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-address-card text-[#00b3b3] text-sm"></i>
+              </span>
+              <h3 class="text-xl font-semibold uppercase text-[#00e0e0]">
+                Contact
+              </h3>
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+            <div class="space-y-2 text-lg">
+              <p>📍 Rajshahi, Bangladesh</p>
+              <p>📧 rasel.shahid@gmail.com</p>
+              <p>📞 +880 1706 302245</p>
+            </div>
+
+            <hr class="my-6 border-white/20">
+
+
+          <section class="mt-10">
+
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                  bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-layer-group text-[#00b3b3] text-sm"></i>
+              </span>
+
+              <h3 class="text-xl font-semibold tracking-wide uppercase text-[#00e0e0]">
+                Core Competencies
+              </h3>
+
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+            <div class="space-y-6">
+
+              <div>
+                <h4 class="font-semibold text-white mb-2">WordPress Development</h4>
+                <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                  Custom WordPress websites, theme setup & customization, plugin integration,
+                  bug fixing, CMS maintenance, and Gutenberg-ready layouts.
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-white mb-2">Front-End & Integration</h4>
+                <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                  HTML, CSS, Tailwind, JavaScript (basic), Elementor, and REST API-based
+                  client-side integrations when needed.
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-white mb-2">Performance & Security</h4>
+                <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                  Speed optimization, caching, lazy loading, image optimization, database cleanup,
+                  SSL setup, and basic malware prevention practices.
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-white mb-2">SEO & Visibility</h4>
+                <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                  On-page SEO, Yoast/Rank Math configuration, schema basics, keyword-focused structure,
+                  and Search Console setup for tracking.
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="mt-10">
+
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                          bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-screwdriver-wrench text-[#00b3b3] text-sm"></i>
+              </span>
+
+              <h3 class="text-xl font-semibold tracking-wide uppercase text-[#00e0e0]">
+                Technical Skills &amp; Tools
+              </h3>
+
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+              <div class="space-y-6">
+
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Development Workflow</h4>
+                  <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                    Git (basic), Local WP, cPanel, FTP, WordPress setup, Elementor builds,
+                    and CPT-based website structuring.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Optimization & Auditing</h4>
+                  <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                    Core Web Vitals improvements, Lighthouse audits, caching strategy,
+                    and real-world performance fixes for WordPress.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Tools & Platforms</h4>
+                  <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                    Google Analytics, GTmetrix, Chrome DevTools, Figma (basic),
+                      Trello for task tracking and collaboration.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-white mb-2">AI & Productivity</h4>
+                  <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                    AI tools for content drafting, layout assistance, faster iterations,
+                    and productivity support.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-white mb-2">Client Delivery</h4>
+                  <div class="border-l-4 border-[#00b3b3]/50 pl-4 text-white/80 text-sm leading-relaxed">
+                    Requirement understanding, clear communication, testing, deployment,
+                    and client support with documentation.
+                  </div>
+                </div>
+
+              </div>
+          </section>
+
+
+          <!-- ================= EDUCATION ================= -->
+          <section class="mt-10">
+
+            <!-- Header (our style) -->
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                          bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-graduation-cap text-[#00b3b3] text-sm"></i>
+              </span>
+
+              <h3 class="text-xl font-semibold tracking-wide uppercase text-[#00e0e0]">
+                Education
+              </h3>
+
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+            <!-- Sub Head -->
+            <h4 class="font-semibold text-white mb-3">
+              Diploma in Engineering
+            </h4>
+
+            <!-- List (no icon) -->
+            <ul class="border-l-4 border-[#00b3b3]/50 pl-4 space-y-1 text-white/80 text-sm leading-relaxed">
+              <li>Greenwitch University</li>
+              <li>Sub: BIT</li>
+              <li>Duration: 4 Years</li>
+              <li>Passing Year: 2018</li>
+            </ul>
+
+            <h4 class="font-semibold text-white mb-3 mt-3">
+              Bachelor of Science
+            </h4>
+
+            <!-- List (no icon) -->
+            <ul class="border-l-4 border-[#00b3b3]/50 pl-4 space-y-1 text-white/80 text-sm leading-relaxed">
+              <li>Khulna University</li>
+              <li>Sub: BGE</li>
+              <li>Duration: 4 Years</li>
+              <li>Passing Year: 2014</li>
+            </ul>
+
+          </section>
+
+          <!-- ================= CERTIFICATIONS ================= -->
+          <section class="mt-10">
+
+            <!-- Header (our style) -->
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                          bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-certificate text-[#00b3b3] text-sm"></i>
+              </span>
+
+              <h3 class="text-xl font-semibold tracking-wide uppercase text-[#00e0e0]">
+                Certifications
+              </h3>
+
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+            <!-- List -->
+            <ul class="space-y-2 text-white/80 text-sm leading-relaxed">
+              <li class="flex gap-2">
+                <!-- fixed width for ✓ -->
+                <span class="w-4 shrink-0 text-[#00b3b3] font-semibold leading-5">✓</span>
+
+                <!-- text block -->
+                <div class="leading-5">
+                  <div class="text-white/90">WordPress Development</div>
+                  <div class="text-white/60">– Bornomala Academy</div>
+                </div>
+              </li>
+              <li class="flex gap-2">
+                <!-- fixed width for ✓ -->
+                <span class="w-4 shrink-0 text-[#00b3b3] font-semibold leading-5">✓</span>
+
+                <!-- text block -->
+                <div class="leading-5">
+                  <div class="text-white/90">Mern Stack Crash Course</div>
+                  <div class="text-white/60">– One Year Academy</div>
+                </div>
+              </li>
+              <li class="flex gap-2">
+                <!-- fixed width for ✓ -->
+                <span class="w-4 shrink-0 text-[#00b3b3] font-semibold leading-5">✓</span>
+
+                <!-- text block -->
+                <div class="leading-5">
+                  <div class="text-white/90">Website Development</div>
+                  <div class="text-white/60">– Perpetual Training Institute</div>
+                </div>
+              </li>
+              <li class="flex gap-2">
+                <!-- fixed width for ✓ -->
+                <span class="w-4 shrink-0 text-[#00b3b3] font-semibold leading-5">✓</span>
+
+                <!-- text block -->
+                <div class="leading-5">
+                  <div class="text-white/90">Data Entry & Freelancing</div>
+                  <div class="text-white/60">– Skill And Technology Institute</div>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- ================= LANGUAGES ================= -->
+          <section class="mt-10">
+
+            <!-- Header (our style) -->
+            <div class="flex items-center gap-3 mb-5">
+              <span class="w-9 h-9 flex items-center justify-center rounded-full 
+                          bg-[#00b3b3]/20 border border-[#00b3b3]/20">
+                <i class="fas fa-language text-[#00b3b3] text-sm"></i>
+              </span>
+
+              <h3 class="text-xl font-semibold tracking-wide uppercase text-[#00e0e0]">
+                Languages
+              </h3>
+
+              <div class="flex-1 h-px bg-[#00b3b3]/15"></div>
+            </div>
+
+            <!-- List -->
+            <ul class="space-y-3 text-sm">
+              <li class="flex gap-2">
+                <span class="w-4 shrink-0 text-[#00b3b3] leading-5">
+                  <i class="fas fa-earth-asia"></i>
+                </span>
+                <div class="leading-5">
+                  <div class="text-white/90">Bengali</div>
+                  <div class="text-white/60">– Native Speaker</div>
+                </div>
+              </li>
+
+              <li class="flex gap-2">
+                <span class="w-4 shrink-0 text-[#00b3b3] leading-5">
+                  <i class="fas fa-globe"></i>
+                </span>
+                <div class="leading-5">
+                  <div class="text-white/90">English</div>
+                  <div class="text-white/60">– Professional Working Proficiency</div>
+                </div>
+              </li>
+
+              <li class="flex gap-2">
+                <span class="w-4 shrink-0 text-[#00b3b3] leading-5">
+                  <i class="fas fa-comments"></i>
+                </span>
+                <div class="leading-5">
+                  <div class="text-white/90">Hindi</div>
+                  <div class="text-white/60">– Basic</div>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="w-full lg:w-[70%] min-h-screen py-3">
+      <div class="min-h-screen max-w-[90%] px-4 space-y-16">
+        <!-- SKILLS -->
+          <section id="skills">
+            <div class="flex flex-wrap gap-2">                 
+                <span class="skill-pill">WordPress</span> 
+                <span class="skill-pill">Elementor Pro</span> 
+                <span class="skill-pill">WooCommerce</span> 
+                <span class="skill-pill">Crocoblock</span> 
+                <span class="skill-pill">Theme Customization</span> 
+                <span class="skill-pill">Tailwind CSS</span>    
+                <span class="skill-pill">Basic JavaScript</span>
+                <span class="skill-pill">Core Web Vitals</span>
+                <span class="skill-pill">Theme Customization</span> 
+                <span class="skill-pill">UI/UX Implementation</span> 
+                <span class="skill-pill">SEO (Yoast / RM)</span> 
+                <span class="skill-pill">Speed Optimization</span> 
+                <span class="skill-pill">ACF</span>
+                <span class="skill-pill">CSS3</span>
+                <span class="skill-pill">cPanel / Hosting</span> 
+                <span class="skill-pill">Migration</span> 
+                <span class="skill-pill">HTML5</span> 
+                <span class="skill-pill">Git & Github</span> 
+                <span class="skill-pill">Figma to WordPress (Yoast / RM)</span>
+            </div>
+          </section>
+
+
+          <section id="summary" class="scroll-mt-24">
+
+            <!-- Section Title -->
+            <div class="section-heading">
+              <span class="title-icon">
+                <i class="fas fa-user-tie"></i>
+              </span>
+              <h2>Professional Summary</h2>
+              <span class="stripe-box"></span>
+            </div>
+            <hr class="section-divider mb-3">
+
+            <!-- Short Summary (2 lines) -->
+            <p class="summary-short">
+              WordPress Developer & Elementor Expert with 5+ years of experience building fast, responsive, SEO-ready websites.
+              Specialized in Elementor Pro, WooCommerce, Figma-to-WordPress and performance optimization.
+            </p>
+            <br>
+            <!-- Full Summary -->
+            <p class="summary-full">
+              I’m a results-driven <span class="summary-highlight">WordPress Developer & Elementor Expert</span> with
+              <span class="summary-highlight">6+ years of hands-on experience</span> delivering modern websites for agencies,
+              startups, and international clients. I build clean, scalable, and conversion-focused websites using
+              <span class="summary-highlight">Elementor Pro</span>, custom WordPress development, and
+              <span class="summary-highlight">WooCommerce</span>—ensuring every site is mobile-first, easy to manage, and aligned with business goals.
+              My workflow covers the complete development cycle: planning the layout, converting designs from
+              <span class="summary-highlight">Figma to WordPress</span>, building reusable sections, and implementing smooth UI/UX interactions.
+              I focus heavily on structure and quality—proper typography, spacing, accessibility-friendly design,
+              and SEO-ready content hierarchy for better ranking potential.
+              <br><br>
+              Performance is also a top priority in my projects. I optimize websites for speed using smart asset handling,
+              caching, image optimization, and clean front-end practices—helping clients achieve better
+              <span class="summary-highlight">Core Web Vitals</span> and a smoother browsing experience.
+              I’m confident in solving complex issues, fixing broken layouts, improving responsiveness, and delivering polished results on time.
+            </p>
+
+          </section>
+
+          <section class="mt-10" id="achievement">
+
+            <div class="section-heading">
+              <span class="title-icon">
+                <i class="fas fa-award text-sm"></i>
+              </span>
+              <h2>Key Achievements</h2>
+              <span class="stripe-box"></span>
+            </div>
+
+            <!-- Divider -->
+            <hr class="section-divider mb-3">
+
+            <!-- List -->
+            <ul class="space-y-2 text-[16px] leading-7 text-gray-700">
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Improved WordPress website performance from
+                <span class="font-semibold text-[#00343b]">PageSpeed Insights 45 → 90+</span>
+                by optimizing caching, database and asset delivery.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Successfully delivered
+                <span class="font-semibold text-[#00343b]">50+ WordPress & front-end projects</span>
+                with strong client satisfaction and repeat orders.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Built and customized
+                <span class="font-semibold text-[#00343b]">WooCommerce stores</span>
+                with product variations, shipping rules, and conversion-focused checkout flows.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Boosted organic traffic for multiple client websites by
+                <span class="font-semibold text-[#00343b]">25–40%</span>
+                through on-page SEO, technical fixes, and structured content hierarchy.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Reduced page load time from
+                <span class="font-semibold text-[#00343b]">6s → under 2.5s</span>
+                using lazy loading, CDN, image optimization, and code cleanup.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Delivered pixel-perfect
+                <span class="font-semibold text-[#00343b]">Figma-to-WordPress</span>
+                conversions with responsive spacing, typography, and reusable Elementor sections.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Fixed broken layouts, plugin conflicts, and theme issues with fast debugging and clean implementation.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Ensured websites are
+                <span class="font-semibold text-[#00343b]">mobile-first</span>,
+                accessible, and cross-browser compatible for consistent user experience.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Managed hosting tasks including migrations, backups, SSL setup, and basic security hardening for production stability.
+              </p>
+            </li>
+
+            <li class="flex gap-3">
+              <span class="mt-[7px] text-[#00b3b3]">
+                <i class="fas fa-star text-[#00343b] text-xs"></i>
+              </span>
+              <p class="text-justify">
+                Trained
+                <span class="font-semibold text-[#00343b]">80+ students</span>
+                on WordPress and front-end technologies through practical project-based mentoring.
+              </p>
+            </li>
+            </ul>
+          </section>
+
+          <section id="experience" class="mt-12">
+
+            <!-- SECTION TITLE (our style) -->
+            <div class="section-heading">
+              <span class="title-icon">
+                <i class="fas fa-briefcase text-sm"></i>
+              </span>
+              <h2>Professional Experience</h2>
+              <span class="stripe-box"></span>
+            </div>
+
+            <hr class="section-divider mb-3">
+
+            <!-- EXPERIENCE BOXES -->
+            <div class="space-y-6">
+
+              <!-- BOX 1 -->
+              <div class="border border-[#00343b]/10 shadow-sm rounded-xl p-6 bg-white">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-semibold text-[#00b3b3]">
+                      Web Design and Developer
+                    </h3>
+                    <p class="text-sm italic text-gray-500 mt-1">
+                      Kleevix It – Dhaka
+                    </p>
+                  </div>
+
+                  <p class="text-base font-semibold text-[#00343b]">
+                    April 2025 – Present
+                  </p>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-[16px] leading-7 text-gray-700">
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Contribute to the design and development of dynamic web projects, focusing on high-quality user experience,
+                      modern design standards, and cross-browser compatibility.
+                    </p>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Collaborate with the core development team, utilizing contemporary front-end frameworks and techniques to
+                      translate design specifications into functional requirements.
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- BOX 2 -->
+              <div class="border border-[#00343b]/10 shadow-sm rounded-xl p-6 bg-white">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-semibold text-[#00b3b3]">
+                      WordPress Trainer & Developer
+                    </h3>
+                    <p class="text-sm italic text-gray-500 mt-1">
+                      WordPress Trainer & Developer –  Dhaka, Bangladesh (Remote)
+                    </p>
+                  </div>
+
+                  <p class="text-base font-semibold text-[#00343b]">
+                    October 2024 – April 2025
+                  </p>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-[16px] leading-7 text-gray-700">
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Delivered structured training programs covering WordPress CMS, HTML, CSS, and basic
+                      JavaScript, mentoring beginner and intermediate learners on real-world client simulation
+                      projects.
+                    </p>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Participated in internal web development projects, focusing on content structuring,
+                      backend efficiency, and contributed to the design of syllabi and tutorial materials.  
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- BOX 3 -->
+              <div class="border border-[#00343b]/10 shadow-sm rounded-xl p-6 bg-white">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-semibold text-[#00b3b3]">
+                      Team Leader & Data Management
+                    </h3>
+                    <p class="text-sm italic text-gray-500 mt-1">
+                      Algo Entry –  Dhaka, Bangladesh (Remote)
+                    </p>
+                  </div>
+
+                  <p class="text-base font-semibold text-[#00343b]">
+                    January 2025 – Present
+                  </p>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-[16px] leading-7 text-gray-700">
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Led and supervised a data entry team to ensure accurate, consistent, and timely completion of daily tasks by assigning work, monitoring progress, and maintaining productivity targets with quality standards.
+                    </p>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Verified and reviewed submitted entries through cross-checking and validation, trained and guided team members, resolved workflow issues, prepared daily/weekly performance reports, and ensured confidentiality of sensitive information.  
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- BOX 4 -->
+              <div class="border border-[#00343b]/10 shadow-sm rounded-xl p-6 bg-white">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-semibold text-[#00b3b3]">
+                      Website Developer
+                    </h3>
+                    <p class="text-sm italic text-gray-500 mt-1">
+                      Root Devs –  Dhaka, Bangladesh
+                    </p>
+                  </div>
+
+                  <p class="text-base font-semibold text-[#00343b]">
+                    June 2019 – October 2019
+                  </p>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-[16px] leading-7 text-gray-700">
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Collaborate with the core development team, utilizing contemporary front-end
+                      frameworks and techniques to translate design specifications into functional
+                      requirements.
+                    </p>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Developed and customized secure, responsive WordPress sites, including advanced
+                      WooCommerce functionalities, using Elementor and custom theme options.  
+                    </p>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- BOX 5 -->
+              <div class="border border-[#00343b]/10 shadow-sm rounded-xl p-6 bg-white">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                  <div>
+                    <h3 class="text-lg font-semibold text-[#00b3b3]">
+                      Freelance WordPress & Front-end Developer
+                    </h3>
+                    <p class="text-sm italic text-gray-500 mt-1">
+                      Fiverr, Upwork & Freelancer
+                    </p>
+                  </div>
+
+                  <p class="text-base font-semibold text-[#00343b]">
+                    June 2024 – Present
+                  </p>
+                </div>
+
+                <ul class="mt-4 space-y-2 text-[16px] leading-7 text-gray-700">
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Successfully delivered numerous end-to-end web development projects (e-commerce,
+                      portfolio, corporate) by managing client communication, requirement gathering, and
+                      final deployment with high satisfaction
+                    </p>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <span class="mt-[7px] text-[#00b3b3] text-xs">•</span>
+                    <p class="text-justify">
+                      Specialized in quick turnaround times for custom WordPress theme and plugin
+                      customizations across diverse niches.  
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section id="portfolio" class="mt-12">
+
+            <!-- SECTION TITLE (our style) -->
+            <div class="section-heading">
+              <span class="title-icon">
+                <i class="fas fa-diagram-project text-sm"></i>
+              </span>
+              <h2>Selected Projects</h2>
+              <span class="stripe-box"></span>
+            </div>
+
+            <hr class="section-divider mb-3">
+
+            <!-- PROJECT CARDS -->
+            <div class="grid grid-cols-1 gap-6">
+
+              <!-- project one -->
+              <div class="project-card">
+
+                <!-- Title -->
+                <h3 class="project-title">
+                  E-Commerce Website Development
+                </h3>
+
+                <!-- Subtitle (NO "client" word + left border) -->
+                <p class="project-subtitle">
+                  ScubaDivings (USA) • Agency Collaboration
+                </p>
+
+                <!-- Description -->
+                <p class="project-desc">
+                  Built a full-scale online store with custom UI/UX, secure payment gateways, and performance optimization.
+                  Integrated Elementor Pro and WooCommerce, achieving fast loading speeds and high conversion rates.
+                </p>
+
+                <!-- Tech -->
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, WooCommerce, Elementor Pro, Crocoblock
+                </p>
+
+                <!-- Live Link -->
+                <a href="https://scubadivings.us/" target="_blank" class="project-link">
+                  Live Link
+                  <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+                <br>
+                <hr class="my-6 border-[#00b3b3]/20">
+                <p class="project-subtitle">
+                  ThePogago (UAE) • Fashion & Travel Bags E-Commerce Store
+                </p>
+
+                <p class="project-desc">
+                  Developed a full-featured e-commerce platform for ThePogago, showcasing a wide range of fashionable bags, backpacks, luggage, and travel accessories. The site delivers smooth browsing, structured product category listings, filtering, and seamless checkout flow tailored for international shoppers. The design prioritizes clarity, ease of use, and conversion-focused shopping experiences to maximize user engagement and sales opportunities.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, WooCommerce, Custom Shop UX, Category Filters, Responsive Design
+                </p>
+
+                <a href="https://thepogago.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              
+              <!-- project two -->
+               <div class="project-card">
+                <h3 class="project-title">Business Website</h3>
+
+                <p class="project-subtitle">
+                  Liza Enterprise BD • Corporate Website
+                </p>
+
+                <p class="project-desc">
+                  Developed a corporate business website with a modern, professional layout to enhance credibility and service presentation.
+                  Focused on clear navigation, effective CTAs, and responsive design optimized for lead generation.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Elementor Pro, Custom CSS, JetEngine
+                </p>
+
+                <a href="https://lizaenterprisebd.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <!-- project three -->
+               <div class="project-card">
+                <h3 class="project-title">Newsportal</h3>
+
+                <p class="project-subtitle">
+                  Shikor TV Canada • News & Media Platform
+                </p>
+
+                <p class="project-desc">
+                  Designed and developed a tailored news and media platform. The site features dynamic content structuring,
+                  category-based filtering, and a robust back-end for efficient content management, ensuring high traffic capacity and accessibility.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Custom Post Types (JetEngine), Elementor Pro
+                </p>
+
+                <a href="https://shikortvcanada.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <!-- project four -->
+              <div class="project-card">
+                <h3 class="project-title">Charity Website</h3>
+
+                <p class="project-subtitle">
+                  Watan USA • Non-Profit / Donation Website
+                </p>
+
+                <p class="project-desc">
+                  Developed a charity and donation-focused website with clear storytelling sections, volunteer engagement areas,
+                  and a mobile-first layout. Optimized structure and performance for smooth browsing and improved trust.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Elementor Pro, Donation Integration, Custom Layout
+                </p>
+
+                <a href="https://watanusa.org/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+                <br><br>
+                <hr class="my-6 border-[#00b3b3]/20">
+                <br>
+                <p class="project-subtitle">
+                  WPecomUS (USA) • Non-Profit / Donation Website
+                </p>
+
+                <p class="project-desc">
+                  Developed a charity-focused website designed to support fundraising and community engagement through a clean, trustworthy, and user-friendly layout. The site highlights the organization’s mission, activities, and donation purpose with clear content structure and strong call-to-action placement. Built with responsive design and performance in mind to ensure smooth browsing and better donation conversion across all devices.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Elementor Pro, Donation Integration, Responsive Design, Performance Optimization
+                </p>
+
+                <a href="https://wpecomus.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <!-- project five -->
+              <div class="project-card">
+                <h3 class="project-title">Landing Page</h3>
+
+                <!-- Subtitle -->
+                <p class="project-subtitle">
+                  ShareeSutra • Single Product Landing Page
+                </p>
+
+                <p class="project-desc">
+                  Created a high-converting, single-page landing page for a specific product promotion. The design prioritizes clear messaging,
+                  visual hierarchy, and fast loading speed, aimed at maximizing conversions rates and capturing leads efficiently.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Elementor Pro, WooCommerce
+                </p>
+
+                <a href="https://shareesutra.com/step/premium-half-silk-digital-printed-sarees/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <!-- project six -->
+              <div class="project-card">
+                <h3 class="project-title">Agency Website</h3>
+
+                <p class="project-subtitle">
+                  PiInfotech Ltd (Bangladesh) • Digital Solutions Agency
+                </p>
+
+                <p class="project-desc">
+                  Designed and developed a corporate agency website for PiInfotech Ltd, showcasing their full range of services, company vision,
+                  team structure, and client success stories. The layout emphasizes credibility and professionalism through clean typography,
+                  strategic content sections, and clear call-to-action elements. Optimized for responsiveness and performance to ensure seamless
+                  browsing on all devices.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Elementor Pro, Custom Layout, Responsive Design, Performance Optimization
+                </p>
+
+                <a href="https://piinfotechltd.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <!-- project seven -->
+              <div class="project-card">
+                <h3 class="project-title">Portfolio Website</h3>
+
+                <p class="project-subtitle">
+                  NurulIslamFaisal (Personal Brand) • Professional Portfolio
+                </p>
+
+                <p class="project-desc">
+                  Designed and developed a clean, modern personal portfolio website for Nurul Islam Faisal to showcase his skills,
+                  projects, experience, and professional identity. The focus was on high readability, accessible navigation, and
+                  professional presentation of key achievements and work history with responsive layout across devices.
+                </p>
+
+                <p class="project-tech">
+                  <span class="tech-label">Tech:</span> WordPress, Custom Theme, Elementor Pro, Responsive Design, SEO Optimization
+                </p>
+
+                <a href="https://nurulislamfaisal.com/" target="_blank" class="project-link">
+                  Live Link <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+
+
+            </div>
+
+          </section>
+
+          <section id="strengths" class="mt-12">
+
+            <!-- SECTION TITLE (our style) -->
+            <div class="section-heading">
+              <span class="title-icon">
+                <i class="fas fa-chart-line text-sm"></i>
+              </span>
+              <h2>Professional Strengths & Soft Skills</h2>
+              <span class="stripe-box"></span>
+            </div>
+            <hr class="section-divider mb-3">
+
+            <!-- CONTENT -->
+            <div class="mt-5 text-[16px] leading-7 text-gray-700">
+
+              <!-- Strengths List -->
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Ability to quickly adapt to new technologies and project requirements.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Strong attention to detail with a focus on code quality and UI/UX best practices.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Strong team player, adaptable in both remote and in-office collaborative environments.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Experience managing client expectations and delivering results under tight deadlines.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Passionate about continuous learning and keeping up with WordPress and web development trends.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Ability to translate client requirements into clean, functional, and conversion-focused website layouts.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Strong problem-solving mindset to debug issues quickly and deliver stable solutions.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Skilled in optimizing websites for speed, performance, and smooth user experience across devices.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Experience handling multiple projects simultaneously while maintaining deadlines and quality.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Proactive communication style with regular updates, progress reporting, and clear documentation.</span>
+                </li>
+
+                <li class="flex items-start gap-2">
+                  <i class="fas fa-check text-[#00b3b3] mt-1 text-sm"></i>
+                  <span>Dedicated to delivering client satisfaction through revisions, support, and post-launch improvements.</span>
+                </li>
+              </ul>
+
+              <!-- Soft Skills -->
+              <h3 class="mt-8 font-semibold text-[#00343b]">Soft Skills</h3>
+
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="skill-pill">Communication</span>
+                <span class="skill-pill">Problem Solving</span>
+                <span class="skill-pill">Time Management</span>
+                <span class="skill-pill">Client Handling</span>
+                <span class="skill-pill">Team Collaboration</span>
+                <span class="skill-pill">Leadership / Mentoring</span>
+              </div>
+
+            </div>
+          </section>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div class="backToTop">
+    <!-- Back to Top -->
+    <button
+  id="backToTop"
+  class="fixed bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center
+         opacity-0 pointer-events-none transition-all duration-300
+         hover:scale-110 group z-50
+         bg-white dark:bg-[#0f2f33]"
+>
+  <!-- Progress Ring -->
+  <svg class="absolute w-full h-full -rotate-90">
+    <circle
+      cx="24"
+      cy="24"
+      r="20"
+      stroke="#00343b"
+      stroke-width="3"
+      fill="none"
+      stroke-dasharray="125.6"
+      stroke-dashoffset="125.6"
+      id="progressCircle"
+      class="dark:stroke-[#6ee7b7]"
+    />
+  </svg>
+
+  <!-- Lucide Arrow Up -->
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="relative w-5 h-5 text-[#00343b] dark:text-[#6ee7b7]
+           transition-transform duration-300 group-hover:-translate-y-1"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+  </svg>
+</button>
+
+
+
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t py-6 text-center text-sm">
+    © 2025 Rasel Shahid
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = section.offsetHeight;
+
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+
+  
+    const text = "Rasel Shahid";
+    const container = document.getElementById("brand-name");
+
+    container.innerHTML = "";
+
+    text.split("").forEach((char, index) => {
+      const span = document.createElement("span");
+      span.textContent = char === " " ? "\u00A0" : char;
+      span.classList.add("letter");
+
+      /* reveal delay */
+      span.style.animationDelay = `${index * 0.08}s, ${index * 0.08 + 0.8}s`;
+
+      container.appendChild(span);
+    });
+
+    /*button back to top*/
+    const backToTop = document.getElementById("backToTop");
+  const progressCircle = document.getElementById("progressCircle");
+  const radius = 20;
+  const circumference = 2 * Math.PI * radius;
+
+  function handleScroll() {
+    const scrollTop = window.scrollY;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollTop / docHeight;
+
+    // show after 1vh
+    if (scrollTop > window.innerHeight * 0.01) {
+      backToTop.classList.remove("opacity-0", "pointer-events-none");
+      backToTop.classList.add("opacity-100");
+    } else {
+      backToTop.classList.add("opacity-0", "pointer-events-none");
+    }
+
+    progressCircle.style.strokeDashoffset =
+      circumference - progress * circumference;
+  }
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+    
+</script>
+</body>
+</html>
